@@ -1,14 +1,21 @@
 package app
 
 import (
-	"golang_intro_rest_microservices/controllers"
-	"net/http"
+	"github.com/gin-gonic/gin"
 )
 
-func StartApp()  {
-	http.HandleFunc("/users", controllers.GetUser)
+var(
+	router *gin.Engine
+)
 
-	err := http.ListenAndServe(":8080", nil)
+func init() {
+	router = gin.Default()
+}
+
+func StartApp()  {
+	mapUrls()
+
+	err := router.Run(":8080")
 	if err != nil {
 		panic(err)
 	}
